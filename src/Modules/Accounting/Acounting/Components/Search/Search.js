@@ -6,7 +6,9 @@ function Search(props) {
     const handleClickItem = (data) => {
         setSaveData(data)
         setOpen(false)
+        console.log(data);
     }
+
     return (
         <>
             <Form className="form-1">
@@ -35,9 +37,9 @@ function Search(props) {
                         </Button>
                         <div className="search-form">
                             <ul className={open? "search-list" : "close-search"} id="searchList">
-                                {result.map((data) =>{
+                                {result.map((data,i) =>{
                                     return (
-                                        <li className="search-item" onClick={(e) => handleClickItem(data)}>{data.user_id}</li>
+                                        <li key={i} className="search-item" onClick={(e) => handleClickItem(data)}>{data.user_id}</li>
                                     )
                                 })}
                             </ul>

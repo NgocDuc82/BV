@@ -13,7 +13,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import { faL } from "@fortawesome/free-solid-svg-icons";
 function Reception() {
-  
   useEffect(() => {
     Axios.get("http://localhost:4000/api/recep")
       .then((response) => {
@@ -21,8 +20,18 @@ function Reception() {
       })
       .catch(function (error) {});
   }, []); 
+  var date = new Date();
+  var components = [
+    date.getYear()-100,
+    date.getMonth()+1,
+    date.getDate(),
+    date.getHours(),
+    date.getMinutes(),
+    date.getSeconds(),
+  ];
+  var user_id_random = components.join("");
   const [infoUser, setInfoUser] = useState({
-    user_id: "",
+    user_id: user_id_random,
     user_name: "",
     user_birthday: "",
     user_sex: "",
@@ -30,7 +39,7 @@ function Reception() {
     user_adress: "",
     user_provinc: "",
     user_district: "",
-    user_wards: "",
+    user_ward: "",
     user_CMND: "",
     user_PlateOfRegis: "",
     user_contact: "",

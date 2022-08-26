@@ -58,7 +58,7 @@ function ResultXray(props) {
             })
         }
         //create
-        if(!!showLocal===true&&!!finishPatient[k]===false){
+        if(!!showLocal[i]===true&&!!finishPatient[k]===false){
             axios.post('http://localhost:4000/api/xray',patient)
         .then(()=>{
             setdata({

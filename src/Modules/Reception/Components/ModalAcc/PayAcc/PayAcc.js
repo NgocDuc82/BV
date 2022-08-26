@@ -8,6 +8,7 @@ function Pay(props) {
     const { infoUser, setListInfoUser, listInfoUser, setInfoUser, toggle } = props
     const handlePayPrint = () => {
         toggle()
+        // console.log("aa");
     }
     
     useEffect(() => {

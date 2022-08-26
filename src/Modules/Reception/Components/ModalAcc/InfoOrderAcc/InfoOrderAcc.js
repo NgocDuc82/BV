@@ -114,7 +114,7 @@ function InfoOrder(props) {
                     <Col md={4}>
                         <FormGroup>
                             <Label >
-                                Trạng thái thanh toán
+                                {infoUser.user_checkPay ? "Đã thanh toán" : "Chưa thanh toán"}
                             </Label>
 
                         </FormGroup>
