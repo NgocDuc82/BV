@@ -3,7 +3,7 @@ import InfoAccounting from "./Components/Info/Info";
 import ContactInformation from "./Components/Info/contactInformation";
 import Service from "./Components/Service/Service";
 import HandleButton from "./Components/HandleButton/HandleButton";
-import ModalAcc from "./Components/ModalAcc/ModalAcc"
+import ModalAcc from "./Components/ModalAcc/ModalAcc";
 import Clock from "../../Shared/Components/clock/index.jsx";
 import Axios from "axios";
 import React, { useState, useEffect } from "react";
@@ -19,11 +19,11 @@ function Reception() {
         console.log(response.data);
       })
       .catch(function (error) {});
-  }, []); 
+  }, []);
   var date = new Date();
   var components = [
-    date.getYear()-100,
-    date.getMonth()+1,
+    date.getYear() - 100,
+    date.getMonth() + 1,
     date.getDate(),
     date.getHours(),
     date.getMinutes(),
@@ -63,7 +63,6 @@ function Reception() {
   };
 
   const toggle = (e) => {
-
     let {
       user_id,
       user_name,
@@ -94,7 +93,7 @@ function Reception() {
           user_reason != ""
         ) {
           setListInfoUser([...listInfoUser, infoUser]);
-          setModal(!modal)
+          setModal(!modal);
         } else {
           return alert("vui lòng điền đầy đủ thông tin");
         }
@@ -102,8 +101,7 @@ function Reception() {
     } else {
       alert("Bạn chưa điền số điện thoại!");
     }
-  }
-
+  };
 
   const HandleButtonClose = () => {
     setInfoUser({
@@ -125,7 +123,6 @@ function Reception() {
       user_reason: "",
     });
   };
-  
 
   // search for
   const [open, setOpen] = useState(true);
@@ -136,49 +133,48 @@ function Reception() {
     setSearch(value);
     setOpen(true);
   };
-  Axios.get('http://localhost:4000/api/recep')
-    .then((response) => {
-      setListInfoUser(response.data)
-      
-    }, [])
-    .catch(function (error) { });
-   
   useEffect(() => {
-    setResListInfoUser(
-      listInfoUser.filter((item) => item.user_id.includes(search))
-    );
+    Axios.get("http://localhost:4000/api/recep")
+      .then((response) => {
+        setListInfoUser(response.data);
+      }, [])
+      .catch(function (error) {});
+  } ,[]);
+
+  useEffect(() => {
+    if(search)
+      setResListInfoUser(listInfoUser.filter((item) => item.user_id.includes(search)));
   }, [search]);
-  
-  const [isChecked, setIsChecked] = useState(false)
-  const handleUpdate=(id)=>{
-    setInfoUser({...infoUser, user_id : id})
+
+  const [isChecked, setIsChecked] = useState(false);
+  const handleUpdate = (id) => {
+    setInfoUser({ ...infoUser, user_id: id });
+    console.log(infoUser.user_id);
     Axios.post(`http://localhost:4000/api/recep/${infoUser.user_id}`, infoUser)
-    .then(res=>{
-      setInfoUser({
-        user_id: "",
-        user_name: "",
-        user_birthday: "",
-        user_sex: "",
-        user_phone: "",
-        user_adress: "",
-        user_city: "",
-        user_district: "",
-        user_ward: "",
-        user_CMND: "",
-        user_PlateOfRegis: "",
-        user_contact: "",
-        user_service: "",
-        user_service_object: "",
-        user_clinic: "",
-        user_reason: "",
-      });
-      setIsChecked(!isChecked);
-    })
-    .catch(err => console.log(err))
+      .then((res) => {
+        setInfoUser({
+          user_id: "",
+          user_name: "",
+          user_birthday: "",
+          user_sex: "",
+          user_phone: "",
+          user_adress: "",
+          user_city: "",
+          user_district: "",
+          user_ward: "",
+          user_CMND: "",
+          user_PlateOfRegis: "",
+          user_contact: "",
+          user_service: "",
+          user_service_object: "",
+          user_clinic: "",
+          user_reason: "",
+        });
+        setIsChecked(!isChecked);
+      })
+      .catch((err) => console.log(err));
+  };
 
-
-  }
-  
   return (
     <div
       className="App"
@@ -204,8 +200,8 @@ function Reception() {
         handleChangeSearch={handleChangeSearch}
         setInfoUser={setInfoUser}
         resListInfoUser={resListInfoUser}
-        setIsChecked = {setIsChecked}
-        isChecked = {isChecked}
+        setIsChecked={setIsChecked}
+        isChecked={isChecked}
       />
       <Row>
         <Col md={6}>
@@ -232,8 +228,8 @@ function Reception() {
         listInfoUser={listInfoUser}
         setModal={setModal}
         setListInfoUser={setListInfoUser}
-        isChecked = {isChecked}
-        handleUpdate = {handleUpdate}
+        isChecked={isChecked}
+        handleUpdate={handleUpdate}
       />
       {/* < ModalAcc /> */}
     </div>
